@@ -21,7 +21,6 @@ public class Consumer implements Runnable {
                 command = queue.take();
                 System.out.println("Consumer processed command " + command.getCommand());
                 commandService.processCommand(command);
-                Thread.sleep(1000); // only for demo
             }
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());

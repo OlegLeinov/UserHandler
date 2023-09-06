@@ -1,7 +1,5 @@
 package com.leinov.repository;
 
-import com.leinov.entity.Command;
-
 import java.sql.*;
 
 public class UserRepository {
@@ -24,37 +22,36 @@ public class UserRepository {
         }
     }
 
-    public ResultSet executeQuery(String query) {
+    public int add(Integer payloadUserId, String payloadUserGuid, String payloadUserName) {
         try {
-            return statement.executeQuery(query);
+            return statement.executeUpdate(String.format("INSERT INTO %s %s VALUES (%d, '%s', '%s')",
+                    TABLE_NAME,
+                    FIELD_NAMES,
+                    payloadUserId,
+                    payloadUserGuid,
+                    payloadUserName));
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
     }
 
-    public int executeUpdate(String query) {
+    public ResultSet getAll() {
         try {
-            return statement.executeUpdate(query);
+            return statement.executeQuery(String.format("SELECT * FROM %s", TABLE_NAME));
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
     }
 
-    public String generateSqlQuery(Command command) {
-        return switch (command.getCommand()) {
-            case ADD -> "INSERT INTO " + TABLE_NAME + FIELD_NAMES + " " +
-                    "VALUES (" + command.getPayloadUserId() + ", " +
-                    shieldString(command.getPayloadUserGuid()) + ", " +
-                    shieldString(command.getPayloadUserName()) + ")";
-            case PRINT_ALL -> "SELECT * FROM " + TABLE_NAME;
-            case DELETE_ALL -> "DELETE FROM " + TABLE_NAME;
-        };
-    }
-
-    private String shieldString(String str) {
-        return "'" + str + "'";
+    public int deleteAll() {
+        try {
+            return statement.executeUpdate(String.format("DELETE FROM %s", TABLE_NAME));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     public Connection getConnection() {

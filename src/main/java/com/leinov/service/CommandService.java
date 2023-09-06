@@ -16,12 +16,14 @@ public class CommandService {
     public void processCommand(Command command) {
         try {
             switch (command.getCommand()) {
-                case ADD -> repository.executeUpdate(repository.generateSqlQuery(command));
+                case ADD -> repository.add(command.getPayloadUserId(),
+                        command.getPayloadUserGuid(),
+                        command.getPayloadUserName());
                 case PRINT_ALL -> {
-                    ResultSet tableData = repository.executeQuery(repository.generateSqlQuery(command));
+                    ResultSet tableData = repository.getAll();
                     printRowsToTerminal(tableData);
                 }
-                case DELETE_ALL -> repository.executeUpdate(repository.generateSqlQuery(command));
+                case DELETE_ALL -> repository.deleteAll();
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
