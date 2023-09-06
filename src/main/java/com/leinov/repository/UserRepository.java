@@ -53,24 +53,4 @@ public class UserRepository {
             throw new RuntimeException(e);
         }
     }
-
-    public Connection getConnection() {
-        return connection;
-    }
-
-    public Statement getStatement() {
-        return statement;
-    }
-
-    public String getTABLE_NAME() {
-        return TABLE_NAME;
-    }
-
-    public String getFIELD_NAMES() {
-        return FIELD_NAMES;
-    }
-
-    public String getCREATE_TABLE_QUERY() {
-        return CREATE_TABLE_QUERY;
-    }
 }
