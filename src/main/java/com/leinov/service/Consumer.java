@@ -23,8 +23,7 @@ public class Consumer implements Runnable {
                 commandService.processCommand(command);
             }
         } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
-            Thread.currentThread().interrupt();
+            System.out.println("STOP");
         }
     }
 }
