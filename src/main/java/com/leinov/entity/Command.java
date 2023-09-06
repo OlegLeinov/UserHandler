@@ -1,7 +1,5 @@
 package com.leinov.entity;
 
-import java.sql.ResultSet;
-
 public class Command {
     public enum SupportedCommand {
         ADD,
