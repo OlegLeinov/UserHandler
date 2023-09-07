@@ -16,9 +16,14 @@ public class CommandService {
     public void processCommand(Command command) {
         try {
             switch (command.getCommand()) {
-                case ADD -> repository.add(command.getPayloadUserId(),
-                        command.getPayloadUserGuid(),
-                        command.getPayloadUserName());
+                case ADD -> {
+                    if (command.getPayloadUserId() == null) {
+                        throw new IllegalArgumentException("USED_ID cannot be null");
+                    }
+                    repository.add(command.getPayloadUserId(),
+                            command.getPayloadUserGuid(),
+                            command.getPayloadUserName());
+                }
                 case PRINT_ALL -> {
                     ResultSet tableData = repository.getAll();
                     printRowsToTerminal(tableData);

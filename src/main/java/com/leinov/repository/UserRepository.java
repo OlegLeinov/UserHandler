@@ -8,9 +8,9 @@ public class UserRepository {
     private final String TABLE_NAME = "SUSERS"; // there is only one table in the demo app
     private final String FIELD_NAMES = "(USER_ID, USER_GUID, USER_NAME)"; // there is only one table in the demo app
     private final String CREATE_TABLE_QUERY = "CREATE TABLE " + TABLE_NAME +
-            "(USER_ID INT NOT NULL," +
-            "USER_GUID VARCHAR(20) NOT NULL," +
-            "USER_NAME VARCHAR(50) NOT NULL)";
+            "(USER_ID INT NOT NULL, " +
+            "USER_GUID VARCHAR(20), " +
+            "USER_NAME VARCHAR(50))";
 
     public UserRepository(String connectionUrl) {
         try {
